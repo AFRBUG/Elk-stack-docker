@@ -10,3 +10,11 @@ network.host: 0.0.0.0
 #
 xpack.license.self_generated.type: trial
 xpack.security.enabled: true
+
+#disabling cross tracking
+
+http.cors.enabled : true
+http.cors.allow-origin: "*"
+http.cors.allow-methods: OPTIONS, HEAD, GET, POST, PUT, DELETE
+http.cors.allow-headers: "*"
+http.cors.allow-credentials: true

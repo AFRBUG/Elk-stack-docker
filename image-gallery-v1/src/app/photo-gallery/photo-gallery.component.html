@@ -1,17 +1,20 @@
-<div class="card-columns">
-    <div class="card" *ngFor="let item of flickerResponse?.items">
-      <img class="card-img-top" [src]="item.media.m" [alt]="item.title" />
-      <div class="card-body">
-        <h5 class="card-title">{{ item.title }}</h5>
-        <p class="card-text">
-          Uploaded by {{ item.author_id }} on
-          {{ item.published | date: "medium" }}
-        </p>
-        <p class="card-text">{{ item.title }}</p>
-        <hr>
-        <p class="card-text">
-          <small class="text-muted">{{ item.tags }}</small>
-        </p>
-      </div>
+<span  class="subcontainer">
+<div class="input-group">
+  <div class="form-outline">
+    <input   [(ngModel)]="searchKeys" type="search" id="form1" class="form-control"  />
+    <label class="form-label" for="form1">Search</label>
+  </div>
+  <button type="button" class="btn btn-primary" id='top' (click)="onSearch()">
+    <i class="fas fa-search"></i>
+  </button>
+</div>
+</span>
+
+<span class="container">
+<div class="card-columns" *ngIf= "testFunction(UrlsList)">
+    <div class="card" *ngFor="let item of UrlsList">
+      <img class="card-img-top" [src]="item" />
+
     </div>
   </div>
+</span>
