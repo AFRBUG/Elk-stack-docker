@@ -12,14 +12,10 @@ import { environment } from 'src/environments/environment.prod';
 
 
 export class FlickrService {
-   httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      'Authorization': 'Basic ' + btoa('elastic:supcom2022')
-    })
-  };
-
+   
   flickerUrl = 'https://api.flickr.com/services/feeds/photos_public.gne?format=json&nojsoncallback=1';
+
+   
 
   constructor(private http: HttpClient) { }
 
@@ -38,7 +34,33 @@ export class FlickrService {
   getPhotos(): Observable<FlickerResponse> {
     return this.http.get<FlickerResponse>(this.flickerUrl);
   }
+
   getPhtotosByKeys(keys:any):any{
-    return this.http.get(environment.serverUrl+"?q="+keys,this.httpOptions);
+     let data={
+      "query": {
+      "fuzzy": {
+      "tags": {
+      "value": keys,
+      "fuzziness": 0.5
+        }
+          }
+        }
+      }, 
+      
+
+      
+      httpOptions = {
+        headers: new HttpHeaders({
+          'Content-Type':  'application/json',
+          'Authorization': 'Basic ' + btoa('elastic:supcom2022')
+        }), 
+   
+  
+      };
+    
+      console.log(httpOptions)
+      JSON.stringify(data)
+      return this.http.post(environment.serverUrl, JSON.stringify(data),httpOptions);
+
   }
 }
